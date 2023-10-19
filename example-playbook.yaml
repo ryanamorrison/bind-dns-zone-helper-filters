@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks: 
+    - name: return a reverse zone name from an ipv4 address
+      ansible.builtin.debug:
+        msg: "{{ '172.30.1.0' | reverse_zone_from_ipfour }}"
+    - name: return the last octet from an ipv4 address
+      ansible.builtin.debug:
+        msg: "{{ '172.30.1.100' | last_octet_from_ipfour }}"
+    - name: return the first three octets from an ipv4 address
+      ansible.builtin.debug:
+        msg: "{{ '172.30.1.100' | first_three_octets_from_ipfour }}"
+    - name: compare current BIND serial number and increment or generate new
+      ansible.builtin.debug:
+        msg: "{{ '2023100900' | serial_number_update }}"
+    - name: generate a zone db filename from a zone name
+      ansible.builtin.debug:
+        msg: "{{ 'zone.com' | zone_to_db_filename }}"
+    - name: change dots to underscores (useful for working with ansible_local facts)
+      ansible.builtin.debug:
+        msg: "{{ 'db.zone.com' | dots_to_underscores }}"
+    - name: change underscores to dots (useful for working with ansible_local facts)
+      ansible.builtin.debug:
+        msg: "{{ 'db_zone_com' | underscores_to_dots }}"
+    - name: generate a reverse zone db filename from an ipv4 address
+      ansible.builtin.debug:
+        msg: "{{ '172.30.1.0' | reverse_zone_file_from_ipfour | zone_to_db_filename }}"
+    - name: get the domain from a FQDN
+      ansible.builtin.debug:
+        msg: "{{ 'myhost.domain.tld' | return_domain_from_fqdn }}"
